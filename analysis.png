@@ -1,0 +1,31 @@
+from PIL import Image, ImageDraw, ImageFont
+import textwrap
+
+# Sample C code output
+c_code = """#include <stdio.h>
+int main() {
+    int x = 4+5*2;
+    printf("%d\\n", x);
+    return 0;
+}"""
+
+# Create an image
+width, height = 500, 180
+image = Image.new("RGB", (width, height), color=(30, 30, 30))
+draw = ImageDraw.Draw(image)
+
+# Use default font (system reset removed previous font availability)
+font = ImageFont.load_default()
+
+# Draw the code as text
+lines = textwrap.wrap(c_code, width=60)
+y_text = 10
+for line in lines:
+    draw.text((10, y_text), line, font=font, fill=(200, 255, 200))
+    y_text += 24
+
+# Save to output
+image_path = "/mnt/data/generated_c_code_output.png"
+image.save(image_path)
+
+image_path
